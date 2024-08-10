@@ -13,5 +13,5 @@ If you want to run the program, just download `tft_set_12_ai_planner.exe`.
 Otherwise, run `pip install -r requirements.txt` and `python main_ui.py` to check out the source code.
 
 # Gallery
-![](demo1.gif)
-![](demo2.gif)
+![](https://github.com/ericlin11354/Teamfight-Tactics-AI-Planner/blob/main/demo1.gif)
+![](https://github.com/ericlin11354/Teamfight-Tactics-AI-Planner/blob/main/demo2.gif)
