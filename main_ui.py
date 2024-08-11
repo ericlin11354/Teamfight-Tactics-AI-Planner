@@ -3,6 +3,8 @@ import customtkinter
 from database import all_units, traits_breakpoints_units, unique_traits
 from PIL import Image
 from teambuilder import find_team
+import sys
+import os
 
 # themeing
 customtkinter.set_appearance_mode("dark")
@@ -23,6 +25,17 @@ CHAMPION_COL_LIMIT = 7  # number of champions in a UI row
 """
     Functions
 """
+
+
+def resource_path(relative_path):
+    """Get the absolute path to the resource, works for dev and for PyInstaller"""
+    try:
+        # PyInstaller creates a temp folder and stores path in _MEIPASS
+        base_path = sys._MEIPASS
+    except Exception:
+        base_path = os.path.abspath(".")
+
+    return os.path.join(base_path, relative_path)
 
 
 def show_trait_count(trait: str, count: int) -> str:
@@ -204,7 +217,9 @@ row = 0
 col = 0
 for unit in sorted(all_units):
     img = customtkinter.CTkImage(
-        Image.open(f"./assets/champions/{unit}.png"), size=(60, 60)
+        # Image.open(f"assets/champions/{unit}.png"), size=(60, 60)
+        Image.open(resource_path(f"assets/champions/{unit}.png")),
+        size=(60, 60),
     )
     button = customtkinter.CTkButton(
         master=champions,
@@ -256,7 +271,9 @@ def draw_traits():
     for trait, count in sort_traits.items():
         if count > 0:
             img = customtkinter.CTkImage(
-                Image.open(f"./assets/traits/{trait}.png"), size=(32, 32)
+                # Image.open(f"assets/traits/{trait}.png"), size=(32, 32)
+                Image.open(resource_path(f"assets/traits/{trait}.png")),
+                size=(32, 32),
             )
             button = customtkinter.CTkButton(
                 master=traits,
@@ -294,8 +311,13 @@ def draw_team():
     col = 0
     for i in range(team_size):
         img = customtkinter.CTkImage(
+            # Image.open(
+            #     f"assets/champions/{'default' if i >= len(team_list) else team_list[i].name}.png"
+            # ),
             Image.open(
-                f"./assets/champions/{'default' if i >= len(team_list) else team_list[i].name}.png"
+                resource_path(
+                    f"assets/champions/{'default' if i >= len(team_list) else team_list[i].name}.png"
+                )
             ),
             size=(125, 150),
         )
@@ -360,7 +382,9 @@ def draw_core():
     label.pack(side="top", fill="x")
     for i in range(len(included_units)):
         img = customtkinter.CTkImage(
-            Image.open(f"./assets/champions/{included_units[i]}.png"), size=(60, 60)
+            # Image.open(f"assets/champions/{included_units[i]}.png"), size=(60, 60)
+            Image.open(resource_path(f"assets/champions/{included_units[i]}.png")),
+            size=(60, 60),
         )
         button = customtkinter.CTkButton(
             master=core,
